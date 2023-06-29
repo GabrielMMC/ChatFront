@@ -1,0 +1,41 @@
+.user-info{
+  background-color: #e6e6e6;
+  color: #333;
+  cursor: pointer;
+  transition: all .2s ease;
+  padding: .5rem;
+  line-height: normal;
+}
+
+.user-info p{
+  font-weight: 500;
+  /* color: #333333; */
+  text-transform: capitalize;
+}
+
+.selected{
+  background-color: #3498db;
+  transition: all .2s ease;
+}
+
+.selected p, .selected span{
+  color: #fff;
+  transition: all .2s ease;
+}
+
+.notification {
+  position: relative;
+  display: inline-block;
+}
+
+.notification::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translate(50%, -50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #3498db;
+  margin-left: .2rem;
+}

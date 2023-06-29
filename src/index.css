@@ -1,0 +1,176 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  /* line-height: 1.5; */
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: #EAF6FE !important;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+  margin: 0 !important;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+/* Estilo da barra de rolagem */
+::-webkit-scrollbar {
+  width: 4px; /* Largura da barra de rolagem */
+}
+
+/* Estilo do indicador de rolagem */
+::-webkit-scrollbar-thumb {
+  background-color: #444; /* Cor de fundo do indicador */
+  border-radius: 4px; /* Raio de borda do indicador */
+}
+
+p{
+  color: rgba(0, 0, 0, 0.75);
+  margin: 0 !important;
+}
+
+label{
+  color: #333;
+  font-weight: 700;
+}
+
+input{
+  min-width: 300px;
+}
+
+.actions button{
+  min-width: 90px !important;
+}
+
+.row{
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+
+.error {
+  color: #d32f2f;
+}
+
+.bolder{
+  font-weight: 700;
+}
+
+.pointer{
+  cursor: pointer;
+}
+
+.link{
+  color: #c02638;
+}
+
+.button{
+  width: 100px;
+  height: 40px;
+}
+
+.content{
+  max-width: 1300px;
+}
+
+.small{
+  font-size: .8em !important;
+}
+
+.bg-red{
+  background-color: #c02638;
+}
+
+.bg-blue{
+  background-color: #3498db;  
+}
+
+.box-shadow{
+  box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+}
+
+.profile-img{
+  position: relative;
+  height: 150px;
+  width: 150px;
+  background-color: #f1f1f1;
+  cursor: pointer;
+  /* box-shadow: 0 0 0 1px rgba(0,0,0,0.05), 2px 2px 3px 1px rgba(208, 213, 219, 0.28); */
+  border-radius: 50%;
+  border: 2px dashed #c4c4c4;
+}
+
+.user-img{
+  position: relative;
+  height: 60px;
+  width: 60px;
+  background-color: #f1f1f1;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.no-user-img{
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.no-user-img h1{
+  font-size: 2em;
+  font-weight: 700;
+}
+
+.rounded-50{
+  border-radius: 50%;
+}
+
+.form-control {
+ width: 100% !important;
+}
+
+.form-control:focus {
+  border: 1px solid #3498db !important;
+  box-shadow: none !important;
+}
+
+.anime-left {
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: all 0.3s;
+  animation: animeLeft 0.3s forwards;
+}
+
+@keyframes animeLeft {
+  to {
+    opacity: initial;
+    transform: initial;
+  }
+}
