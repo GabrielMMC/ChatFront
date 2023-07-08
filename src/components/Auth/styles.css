@@ -5,22 +5,3 @@
   max-width: 500px !important;
   flex: 1 1 1;
 }
-
-.animated-title {
-  text-align: center;
-  font-size: 5em;
-  background: url('../../assets/liquid-effect.gif');
-  background-size: 150%;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-clip: border-box;
-  -webkit-text-fill-color: transparent;
-  -webkit-background-clip: text;
-  transition: .4s all ease;
-}
-
-@media (max-width: 500px) {
-  .animated-title {
-    font-size: 3em;
-  }
-}

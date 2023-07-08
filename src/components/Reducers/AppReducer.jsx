@@ -3,6 +3,8 @@ const INITIAL_STATE = {
     token: null,
     user: {},
     friendships: [],
+    friendshipDefaultStyle: '',
+    selectedFriend: '',
 };
 
 export default (state = INITIAL_STATE, action) => {

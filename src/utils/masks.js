@@ -1,4 +1,4 @@
-const dateMask = (value) => {
+export const dateMask = (value) => {
   value = new Date(value)
   let month; let day; let year = value.getFullYear()
 
@@ -12,4 +12,9 @@ const dateMask = (value) => {
   return day + '/' + month + '/' + year
 }
 
-export default dateMask
+export const hourMask = (value) => {
+  const date = new Date(value)
+  const hours = date.getHours().toString().padStart(2, '0');
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+  return `${hours}:${minutes}`;
+}

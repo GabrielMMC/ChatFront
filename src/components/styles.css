@@ -24,18 +24,30 @@
 }
 
 .notification {
-  position: relative;
-  display: inline-block;
-}
-
-.notification::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  transform: translate(50%, -50%);
-  width: 10px;
-  height: 10px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .75em;
+  font-weight: 700;
+  /* width: 20px;
+  height: 20px; */
+  color: #EAF6FE;
   border-radius: 50%;
   background-color: #3498db;
-  margin-left: .2rem;
+  margin-left: .3rem;
+  width: 0;
+  height: 0;
+  animation: expandCircle .1s linear forwards; 
+}
+
+@keyframes expandCircle {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    width: 20px;
+    height: 20px;
+    opacity: 1;
+  }
 }

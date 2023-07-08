@@ -8,6 +8,8 @@ import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { getRandomColor } from '../utils/colors'
 import { STORAGE_URL } from './variables'
+import { PUT } from '../utils/request'
+import ViewImageModal from '../utils/ViewImageModal'
 
 const Navbar = ({ user }) => {
   const [style, setStyle] = React.useState(getRandomColor())
@@ -27,6 +29,11 @@ const Navbar = ({ user }) => {
           // swal(`Desconectado com sucesso!`, {
           //   icon: "success",
           // });
+          const { response, statusCode } = await PUT({ url: `profile/online/${false}` })
+          if (statusCode !== 200) {
+            return
+          }
+
           localStorage.removeItem('token')
           localStorage.removeItem('user')
           localStorage.removeItem('friendships')
@@ -40,11 +47,11 @@ const Navbar = ({ user }) => {
   return (
     <nav className='d-flex p-2 justify-content-between align-items-center'>
       <div className="d-flex align-items-center">
-        <div className="user-image" style={{ minWidth: 60, height: 60 }}>
+        <div className="user-image" style={{ width: 60, height: 60 }}>
           {user.file
-            ? <img className='w-100 h-100 rounded-50' src={STORAGE_URL + user.file} alt="user" />
+            ? <ViewImageModal url={STORAGE_URL + user.file} classes={'rounded-50'} />
             : <div className='no-user-img' style={style}>
-              <h1>{user.nickname.substring(0, 1)}</h1>
+              <h1>{user.nickname.substring(0, 1).toUpperCase()}</h1>
             </div>}
         </div>
 

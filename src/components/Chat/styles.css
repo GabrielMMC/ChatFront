@@ -3,8 +3,8 @@
   display: flex;
   align-items: stretch;
   flex-direction: column;
-  max-height: calc(100vh - 200px) !important;
   overflow: auto;
+  max-height: calc(100vh - 200px);
   background-color: #f7f7f7;
 }
 
@@ -15,6 +15,19 @@
   left: 29%;
 }
 
+@media screen and (max-width: 768px){
+  .chat{
+    max-height:100vh;
+  }
+
+  .profile-margin{
+    margin-left: 40px;
+    }
+}
+
+.date-divider{
+  font-weight: 500;
+}
 
 .sender{
   display: flex;
@@ -23,14 +36,100 @@
   align-self: flex-end;
   padding: 1rem;
   background-color: #3498db;
-  border-radius: 10px 10px 0 10px;
+  border-radius: 10px 10px 0 10px !important;
 }
 
-.reciver{
+.receiver{
   display: flex;
   align-items: start;
   align-self: start;
   padding: 1rem;
   background-color: #e6e6e6;
-  border-radius: 10px 10px 10px 0;
-} 
+  border-radius: 10px 10px 10px 0 !important;
+}
+
+.typing-animation{
+  font-weight: 700;
+  color: #3498db;
+  margin-right: 2px;
+}
+
+@keyframes typing {
+  0% {
+    opacity: 1;
+  }
+  33% {
+    opacity: 0.5;
+  }
+  66% {
+    opacity: 0.25;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes zoom-in {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.typing-animation {
+  display: inline-block;
+}
+
+.dot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin-right: 2px;
+  background-color: #3498db;
+  border-radius: 50%;
+  animation: typing 1.5s infinite, zoom-in 1.5s infinite;
+}
+
+.dot:nth-child(2) {
+  animation-delay: 0.5s;
+}
+
+.dot:nth-child(3) {
+  animation-delay: 1s;
+}
+
+.input-send{
+  background-color: #3498db;
+  border-radius: 0 .3rem .3rem 0;
+  color: white !important;
+}
+
+/* .span-image{
+  background-color: rgba(0, 0, 0, .4);
+  display: flex;
+  border-radius: .4rem;
+  right: 0;
+} */
+
+.image-container {
+  position: relative;
+  display: inline-block;
+}
+
+.image-container .span-image {
+  position: absolute;
+  background-color: rgba(0, 0, 0, .4);
+  border-radius: .4rem;
+  bottom: 0;
+  right: 0;
+  margin-bottom: 5px;
+  margin-right: 5px;
+}
+
+
+

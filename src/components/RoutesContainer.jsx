@@ -5,11 +5,10 @@ import Login from "./Auth/Login";
 import Register from "./Auth/Register";
 import Home from "./Home";
 import Chat from "./Chat/Chat";
-import { PUT } from "../utils/request";
 import Profile from "./Profile/Profile";
 
 //Props comming from App.js file
-const RoutesContainer = ({ echo }) => {
+const RoutesContainer = () => {
   const dispatch = useDispatch();
   let token = localStorage.getItem("token");
   let user = localStorage.getItem("user");
@@ -24,13 +23,13 @@ const RoutesContainer = ({ echo }) => {
 
   return (
     <Routes>
-      {!user && echo &&
+      {!user &&
         <>
           <Route path={"/login"} element={<Login />} />
           <Route path={"/register"} element={<Register />} />
         </>
       }
-      {user && echo &&
+      {user &&
         <>
           <Route path={"/*"} element={<Home />}>
             <Route path={"profile"} element={<Profile />} />

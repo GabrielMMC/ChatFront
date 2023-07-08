@@ -51,9 +51,9 @@ const Login = () => {
 
   return (
     <div className="d-flex vh-100 align-items-center justify-content-center">
-      <form className="login" onSubmit={(e) => { e.preventDefault(); handleSave() }}>
+      <form className="login bg-white" onSubmit={(e) => { e.preventDefault(); handleSave() }}>
         <div className="p-sm-5 p-3">
-          <h1 className='animated-title'>WatZati II</h1>
+          <h1 className='title'>Zap II</h1>
           <TextFieldInput
             name='email'
             label='Email'

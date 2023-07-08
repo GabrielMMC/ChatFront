@@ -7,7 +7,7 @@ import { getRandomColor } from '../../utils/colors'
 import './styles.css'
 import { Button } from '@mui/material'
 import useForm from '../../utils/useForm'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 const Profile = () => {
   const [validNickname, setValidNickname] = React.useState(false)
@@ -24,6 +24,7 @@ const Profile = () => {
 
   React.useEffect(() => {
     getUserData()
+    dispatch({ type: 'selectedFriend', payload: '' })
   }, [])
 
   const getUserData = async () => {
@@ -79,7 +80,7 @@ const Profile = () => {
     setError('nickname', '')
     return true
   }
-  console.log('eerors', errors)
+
   return (
     <div className='d-flex justify-content-center p-4 h-100'>
       {!form.loading ?

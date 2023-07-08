@@ -11,7 +11,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import { PUT } from './utils/request';
 
 function App() {
-  const echo = useSelector(state => state.AppReducer.echo)
   const dispatch = useDispatch()
 
   React.useEffect(() => {
@@ -66,7 +65,7 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <RoutesContainer echo={echo} />
+      <RoutesContainer />
 
       <ToastContainer
         position="bottom-right"

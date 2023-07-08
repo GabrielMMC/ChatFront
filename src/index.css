@@ -60,8 +60,9 @@ label{
   font-weight: 700;
 }
 
-input{
-  min-width: 300px;
+.title{
+  font-size: 4em;
+  text-align: center;
 }
 
 .actions button{
@@ -73,6 +74,9 @@ input{
   margin-right: 0 !important;
 }
 
+.line-height-1{
+  line-height: 1;
+}
 
 .error {
   color: #d32f2f;
@@ -152,9 +156,17 @@ input{
   border-radius: 50%;
 }
 
-.form-control {
- width: 100% !important;
+.hover-0{
+  background-color: #3498db !important;
 }
+
+.hover-0:hover{
+  background-color: #3498db !important;
+}
+
+/* .form-control {
+ width: 100% !important;
+} */
 
 .form-control:focus {
   border: 1px solid #3498db !important;

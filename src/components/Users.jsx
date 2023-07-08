@@ -5,6 +5,7 @@ import { Box, IconButton, Menu, MenuItem, Pagination, Tooltip } from '@mui/mater
 import { DELETE, GET, POST, PUT } from '../utils/request';
 import { useDispatch, useSelector } from 'react-redux';
 import { renderToast } from '../utils/Alerts';
+import { getRandomColor } from '../utils/colors';
 
 const Users = () => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -17,6 +18,7 @@ const Users = () => {
   })
   const user = useSelector(state => state.AppReducer.user)
   const echo = useSelector(state => state.AppReducer.echo)
+  const friendships = useSelector(state => state.AppReducer.friendships)
   const dispatch = useDispatch()
 
   const handleOpenUserMenu = (event) => {
@@ -28,11 +30,17 @@ const Users = () => {
   };
 
   React.useEffect(() => {
+    echo.leave(`user.invites.${user.id}`)
     echo.channel(`user.invites.${user.id}`).listen('.Invites', (e) => {
-      console.log('response websocket invites', e.new_invite)
-      setInvites([...invites, e.new_invite])
+      console.log('response websocket invites', e)
+      if (e.type === 'new_invite') {
+        setInvites([...invites, e.new_invite])
+      } else {
+        console.log('teste friendships', friendships, [e.friendship, ...friendships])
+        dispatch({ type: 'friendships', payload: [e.friendship, ...friendships] })
+      }
     })
-  }, [])
+  }, [friendships])
 
   React.useEffect(() => {
     if (anchorElUser) {
@@ -91,7 +99,7 @@ const Users = () => {
       return
     }
     setInvites(invites.filter(item => item.id !== id))
-    dispatch({ type: 'friendships', payload: invites.filter(item => item.id === id)[0].user })
+    dispatch({ type: 'friendships', payload: [...friendships, { ...invites.filter(item => item.id === id)[0], notification: 0, style: getRandomColor() }] })
   }
 
   const handleDeclineFriend = async (id) => {
