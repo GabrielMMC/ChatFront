@@ -12,27 +12,27 @@ import './App.css'
 function App() {
   const dispatch = useDispatch()
 
+
+  // type: 'echo', payload: new Echo({
+  //   broadcaster: 'pusher',
+  //   key: '648953a3719bc642f0ce',
+  //   cluster: 'mt1',
+  //   wsHost: '127.0.0.1',
+  //   wsPort: 6001,
+  //   // authEndpoint: 'http://localhost:8000/broadcasting/auth',
+  //   transports: ['websocket'],
+  //   // auth: {
+  //   //   headers: {
+  //   //     Authorization: `Bearer ${token}`,
+  //   //     Accept: 'application/json'
+  //   //   },
+  //   // },
+  //   enabledTransports: ['ws'],
+  //   forceTLS: false,
+  //   disableStats: true
+
   React.useEffect(() => {
     window.Pusher = Pusher;
-
-    // type: 'echo', payload: new Echo({
-    //   broadcaster: 'pusher',
-    //   key: '648953a3719bc642f0ce',
-    //   cluster: 'mt1',
-    //   wsHost: '127.0.0.1',
-    //   wsPort: 6001,
-    //   // authEndpoint: 'http://localhost:8000/broadcasting/auth',
-    //   transports: ['websocket'],
-    //   // auth: {
-    //   //   headers: {
-    //   //     Authorization: `Bearer ${token}`,
-    //   //     Accept: 'application/json'
-    //   //   },
-    //   // },
-    //   enabledTransports: ['ws'],
-    //   forceTLS: false,
-    //   disableStats: true
-
     dispatch({
       type: 'echo', payload: new Echo({
         broadcaster: 'pusher',
@@ -40,6 +40,7 @@ function App() {
         cluster: 'mt1',
         wsHost: 'zapii.website',
         wsPort: 6001,
+        wssPort: null,
         transports: ['websocket'],
         enabledTransports: ['ws'],
         forceTLS: false,
