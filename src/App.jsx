@@ -38,7 +38,6 @@ function App() {
         cluster: 'mt1',
         wsHost: '127.0.0.1',
         wsPort: 6001,
-        wssport: 6001,
         // authEndpoint: 'http://localhost:8000/broadcasting/auth',
         transports: ['websocket'],
         // auth: {
@@ -47,7 +46,7 @@ function App() {
         //     Accept: 'application/json'
         //   },
         // },
-        enabledTransports: ['ws', 'wss'],
+        enabledTransports: ['ws'],
         forceTLS: false,
         disableStats: true
       })
