@@ -3,12 +3,11 @@ import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
 import RoutesContainer from './components/RoutesContainer';
 import { ThemeProvider, createTheme } from '@mui/material';
-import './App.css'
-import { URL, WEBSOCKET_URL } from './components/variables';
-import { useDispatch, useSelector } from 'react-redux';
+import { WEBSOCKET_URL } from './components/variables';
+import { useDispatch } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { PUT } from './utils/request';
+import './App.css'
 
 function App() {
   const dispatch = useDispatch()
@@ -16,36 +15,32 @@ function App() {
   React.useEffect(() => {
     window.Pusher = Pusher;
 
-    // const echo = new Echo({
+    // type: 'echo', payload: new Echo({
     //   broadcaster: 'pusher',
     //   key: '648953a3719bc642f0ce',
     //   cluster: 'mt1',
-    //   forceTLS: false,
-    //   disableStats: true,
-    //   wsHost: window.location.hostname,
+    //   wsHost: '127.0.0.1',
     //   wsPort: 6001,
-    //   auth: {
-    //     headers: {
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //   },
-    // });
+    //   // authEndpoint: 'http://localhost:8000/broadcasting/auth',
+    //   transports: ['websocket'],
+    //   // auth: {
+    //   //   headers: {
+    //   //     Authorization: `Bearer ${token}`,
+    //   //     Accept: 'application/json'
+    //   //   },
+    //   // },
+    //   enabledTransports: ['ws'],
+    //   forceTLS: false,
+    //   disableStats: true
 
     dispatch({
       type: 'echo', payload: new Echo({
         broadcaster: 'pusher',
         key: '648953a3719bc642f0ce',
         cluster: 'mt1',
-        wsHost: '127.0.0.1',
+        wsHost: WEBSOCKET_URL,
         wsPort: 6001,
-        // authEndpoint: 'http://localhost:8000/broadcasting/auth',
         transports: ['websocket'],
-        // auth: {
-        //   headers: {
-        //     Authorization: `Bearer ${token}`,
-        //     Accept: 'application/json'
-        //   },
-        // },
         enabledTransports: ['ws'],
         forceTLS: false,
         disableStats: true
