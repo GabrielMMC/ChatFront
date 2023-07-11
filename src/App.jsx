@@ -38,7 +38,7 @@ function App() {
         broadcaster: 'pusher',
         key: '648953a3719bc642f0ce',
         cluster: 'mt1',
-        wsHost: WEBSOCKET_URL,
+        wsHost: 'zapii.website',
         wsPort: 6001,
         transports: ['websocket'],
         enabledTransports: ['ws'],

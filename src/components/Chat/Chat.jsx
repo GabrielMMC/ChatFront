@@ -214,7 +214,7 @@ const Chat = () => {
       setLoading(false)
     } else {
       setMessages([...response.messages, ...messages])
-      scrollRef.current.scrollTo(0, 2)
+      scrollRef?.current?.scrollTo(0, 2)
       setLoading(false)
     }
   }
