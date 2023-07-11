@@ -39,6 +39,7 @@ function App() {
         key: '648953a3719bc642f0ce',
         cluster: 'mt1',
         wsHost: 'zapii.website',
+        wssHost: null,
         wsPort: 6001,
         wssPort: null,
         transports: ['websocket'],
