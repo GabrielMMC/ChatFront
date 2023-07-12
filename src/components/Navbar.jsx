@@ -29,10 +29,7 @@ const Navbar = ({ user }) => {
           // swal(`Desconectado com sucesso!`, {
           //   icon: "success",
           // });
-          const { response, statusCode } = await PUT({ url: `profile/online/${false}` })
-          if (statusCode !== 200) {
-            return
-          }
+          await PUT({ url: `profile/online/${false}` })
 
           localStorage.removeItem('token')
           localStorage.removeItem('user')
