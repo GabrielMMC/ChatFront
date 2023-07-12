@@ -12,25 +12,6 @@ import './App.css'
 function App() {
   const dispatch = useDispatch()
 
-
-  // type: 'echo', payload: new Echo({
-  //   broadcaster: 'pusher',
-  //   key: '648953a3719bc642f0ce',
-  //   cluster: 'mt1',
-  //   wsHost: '127.0.0.1',
-  //   wsPort: 6001,
-  //   // authEndpoint: 'http://localhost:8000/broadcasting/auth',
-  //   transports: ['websocket'],
-  //   // auth: {
-  //   //   headers: {
-  //   //     Authorization: `Bearer ${token}`,
-  //   //     Accept: 'application/json'
-  //   //   },
-  //   // },
-  //   enabledTransports: ['ws'],
-  //   forceTLS: false,
-  //   disableStats: true
-
   React.useEffect(() => {
     window.Pusher = Pusher;
     dispatch({
@@ -43,11 +24,17 @@ function App() {
         wssPort: 6001, // Adicione essa opção
         transports: ['websocket'],
         enabledTransports: ['ws', 'wss'],
-        forceTLS: true, // Defina como true para usar "wss"
+        forceTLS: false, // Defina como true para usar "wss"
         disableStats: true,
-        encrypted: true, // Defina como true para usar "wss"
+        encrypted: false, // Defina como true para usar "wss"
       })
     })
+
+    const selectedUser = JSON.parse(localStorage.getItem('selectedFriend'))
+    if (selectedUser) {
+      dispatch({ type: 'selectedFriend', payload: selectedUser })
+    }
+
   }, [])
 
   const theme = createTheme({

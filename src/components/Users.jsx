@@ -37,7 +37,7 @@ const Users = () => {
         setInvites([...invites, e.new_invite])
       } else {
         console.log('teste friendships', friendships, [e.friendship, ...friendships])
-        dispatch({ type: 'friendships', payload: [e.friendship, ...friendships] })
+        dispatch({ type: 'friendships', payload: [{ ...e.friendship, notification: 0, style: getRandomColor() }, ...friendships] })
       }
     })
   }, [friendships])
@@ -120,7 +120,7 @@ const Users = () => {
   return (
     <>
       <Box sx={{ flexGrow: 0 }}>
-        <Tooltip title="Open settings">
+        <Tooltip title="Adicionar ou aceitar solicitações">
           <IconButton onClick={handleOpenUserMenu}><FaUsers /></IconButton>
         </Tooltip>
         <Menu
@@ -141,7 +141,7 @@ const Users = () => {
         >
           <div className="input-group px-2">
             <input type="text" className='form-control' onChange={handleSearchChange} />
-            <div className="bg-red" style={{ borderRadius: '0 5px 5px 0' }}>
+            <div className="bg-blue" style={{ borderRadius: '0 5px 5px 0' }}>
               <IoMdSearch className='m-2' size={20} color='#FFF' />
             </div>
           </div>

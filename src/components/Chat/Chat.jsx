@@ -15,15 +15,21 @@ import { MdArrowBack } from 'react-icons/md'
 import ChatSkeleton from './ChatSkeleton'
 
 const Chat = () => {
+  const friendships = useSelector(state => state.AppReducer.friendships)
+
   const [message, setMessage] = React.useState('')
   const [friendUser, setFriendUser] = React.useState('')
   const [currentParamsId, setCurrentParamsId] = React.useState('')
+
   const [messages, setMessages] = React.useState([])
   const [unseenMessages, setUnseenMessages] = React.useState([])
+
   const [loading, setLoading] = React.useState(true)
+  const [allowScroll, setAllowScroll] = React.useState(true)
   const [isCalled, setIsCalled] = React.useState(false)
   const [scrollToBottom, setScrollToBottom] = React.useState(false)
-  const [openedChannels, setOpenedChannels] = React.useState(false)
+  const [friendsPosition, setFriendsPosition] = React.useState(false)
+
   const [pagination, setPagination] = React.useState({
     totalItems: '', pageNumber: 1, perPage: 1, lastPage: ''
   })
@@ -31,7 +37,6 @@ const Chat = () => {
   const user = useSelector(state => state.AppReducer.user)
   const echo = useSelector(state => state.AppReducer.echo)
   const token = useSelector(state => state.AppReducer.token)
-  const friendships = useSelector(state => state.AppReducer.friendships)
 
   const params = useParams()
   const dispatch = useDispatch()
@@ -48,7 +53,7 @@ const Chat = () => {
       getMessages(params.id, 1)
     }
 
-    if (!params.id || !friendUser.id) {
+    if (!params.id || !friendUser.id || friendships.length === 0) {
       return
     }
 
@@ -56,11 +61,11 @@ const Chat = () => {
     // Reabrindo canais para atualizar seus parametros de id
     echo.leave(`user.${user.id}`)
     echo.channel(`user.${user.id}`).listen('.SendMessage', messageHandler);
+    console.log('renderizou')
 
     echo.leave(`user.unseen_messages.${user.id}`)
     echo.channel(`user.unseen_messages.${user.id}`).listen('.MessageDisplayed', messageDisplayedHandler);
-    setOpenedChannels(true)
-  }, [params.id, friendUser.id])
+  }, [params.id, friendUser.id, friendsPosition, friendships.length])
 
   // Scroll para o fim do container ao atualizar o estado das mensagens
   React.useEffect(() => {
@@ -78,18 +83,16 @@ const Chat = () => {
   }, [friendUser.id])
 
   React.useEffect(() => {
-    // Reabrindo canais para atualizar seu parâmetro de friendships
-    if (openedChannels) {
-      echo.leave(`user.${user.id}`)
-      echo.channel(`user.${user.id}`).listen('.SendMessage', messageHandler);
-    }
-  }, [friendships])
-
-  React.useEffect(() => {
     if (pagination.pageNumber !== 1) {
       getMessages(params.id, pagination.pageNumber)
     }
   }, [pagination.pageNumber])
+
+  React.useEffect(() => {
+    if (allowScroll) {
+      messagesRef?.current?.scrollIntoView({ block: 'end' })
+    }
+  }, [messages])
 
   //-------------------------*-------------------------
   // Caso o id de retorno do websocket seja igual ao chat aberto, as notificações são zeradas
@@ -112,10 +115,9 @@ const Chat = () => {
           if (item.user.id === e.sender_id) item.isTyping = e.is_typing
           return item
         })
-
+        console.log('uai caraio', friendships)
         // Atualizando valor do redux
         dispatch({ type: 'friendships', payload: newFriendships })
-        console.log('uai carallho', friendships, newFriendships)
       }
       return
     }
@@ -160,6 +162,8 @@ const Chat = () => {
         const movedFriendship = newFriendships.splice(friendshipIndex, 1)[0];
         newFriendships.unshift(movedFriendship);
       }
+
+      setFriendsPosition(!friendsPosition)
     }
 
     // Atualizando valor do redux
@@ -173,12 +177,14 @@ const Chat = () => {
     }
 
     if (scrollRef.current.scrollTop === 0 && !isCalled) {
-      setPagination({ ...pagination, pageNumber: pagination.pageNumber + 1 });
-      setIsCalled(true);
+      setPagination({ ...pagination, pageNumber: pagination.pageNumber + 1 })
+      setIsCalled(true)
+      setAllowScroll(false)
 
       setTimeout(() => {
-        setIsCalled(false);
-      }, 500);
+        setIsCalled(false)
+        setAllowScroll(true)
+      }, 500)
     }
   }
 
@@ -242,14 +248,12 @@ const Chat = () => {
       })
       setUnseenMessages([...unseenMessages, ...unseen])
       setMessages([...messages, ...response.messages])
-      messagesRef?.current?.scrollIntoView({ block: 'end' })
       return
     }
 
     // Lógica em caso de mensagem única, filtrando o genericId e substituindo-o pela mensagem que foi retornada do servidor 
     setUnseenMessages([...unseenMessages, { message_id: response.message.id }])
     setMessages([...messages.filter(item => item.id !== genericId), response.message])
-    messagesRef?.current?.scrollIntoView({ block: 'end' })
   }
 
   //-------------------------*-------------------------
@@ -323,7 +327,7 @@ const Chat = () => {
           {messageDate === dateMask(new Date()) ? 'Hoje' : messageDate}
         </p>}
         {content}
-        <span className={sender ? 'ms-auto mb-3' : 'mb-3'}>{hourMask(message.created_at)}</span>
+        <span className={sender ? 'hour ms-auto mb-2' : 'hour mb-2'}>{hourMask(message.created_at)}</span>
       </div>
     )
   }
@@ -332,8 +336,8 @@ const Chat = () => {
   return (
     <>
       {!loading ?
-        <div className='d-flex flex-column px-md-5 py-3 position-relative h-100'>
-          <div className="d-flex align-items-center justify-content-start py-3 position-sticky">
+        <div className='d-flex flex-column px-md-5 position-relative h-100'>
+          <div className="d-flex align-items-center justify-content-start py-2 position-sticky">
             {/* -------------------------Usuário-selecionado------------------------- */}
             <div className="d-md-none d-block">
               <IconButton onClick={handleBackToHome}>
@@ -372,7 +376,9 @@ const Chat = () => {
             </div>
           </div>
           {/* -------------------------Componente-dos-inputs------------------------- */}
-          <Input friendUser={friendUser} handleSave={handleSave} setMessages={setMessages} />
+          <div className="py-2">
+            <Input friendUser={friendUser} handleSave={handleSave} setMessages={setMessages} />
+          </div>
         </div> :
         <ChatSkeleton />
       }

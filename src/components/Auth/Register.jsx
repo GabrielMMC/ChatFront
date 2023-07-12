@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import TextFieldInput from '../../utils/TextFieldInput'
 import { Button, CircularProgress } from '@mui/material'
 import './styles.css'
+import { renderToast } from '../../utils/Alerts'
 
 const Register = () => {
   const { form, errors, handleChange, handleBlur, setErrors } = useForm({
@@ -17,11 +18,8 @@ const Register = () => {
   })
   const [errorMessage, setErrorMessage] = React.useState('')
   const [loadingSave, setLoadingSave] = React.useState(false)
-  const [showPassword, setShowPassword] = React.useState(false)
-  const [showConfirmPassword, setShowConfirmPassword] = React.useState(false)
 
   const history = useNavigate()
-  const dispatch = useDispatch()
 
   const handleSave = async () => {
     let newErrors = {}
@@ -32,18 +30,28 @@ const Register = () => {
     //Checking if the email has valid characters
     if (!emailRegex().test(form.email)) newErrors.email = 'Email inválido'
 
+    if (form.password !== form.confirm_password) {
+      newErrors.password = 'Senhas diferentes'
+      newErrors.confirm_password = 'Senhas diferentes'
+    }
+
+    if (form.password.length < 8) newErrors.password = 'A senha precisa de ao menos 8 caracteres'
+    if (form.confirm_password.length < 8) newErrors.confirm_password = 'A senha precisa de ao menos 8 caracteres'
+
     //If the errors object is empty, the request is made, otherwise the errors state is updated
     if (Object.keys(newErrors).length !== 0) setErrors(newErrors)
     else {
       setLoadingSave(true)
       const { response, statusCode } = await POST({ url: 'auth/register', body: JSON.stringify(form) })
-
-      if (statusCode === 200) {
-        // history('/login')
-      } else {
-        setErrorMessage(response.message)
-      }
       setLoadingSave(false)
+
+      if (statusCode !== 200) {
+        setErrorMessage(response.message)
+        return
+      }
+
+      renderToast({ type: 'info', message: response.message })
+      history('/login')
     }
   }
 

@@ -34,18 +34,24 @@
   align-items: end;
   color: white;
   align-self: flex-end;
-  padding: 1rem;
+  padding: .7rem;
   background-color: #3498db;
   border-radius: 10px 10px 0 10px !important;
+  font-size: .88em;
 }
 
 .receiver{
   display: flex;
   align-items: start;
   align-self: start;
-  padding: 1rem;
+  padding: .7rem;
   background-color: #e6e6e6;
   border-radius: 10px 10px 10px 0 !important;
+  font-size: .88em;
+}
+
+.hour{
+  font-size: .8em;
 }
 
 .typing-animation{

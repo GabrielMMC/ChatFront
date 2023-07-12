@@ -6,6 +6,7 @@ import ImagesModal from './ImagesModal';
 import { useParams } from 'react-router-dom';
 import { POST, PUT } from '../../utils/request';
 import Mic from './Mic';
+import { renderToast } from '../../utils/Alerts';
 
 //Props comming from ./Chat.jsx
 const Input = ({ friendUser, handleSave, setMessages }) => {
@@ -32,7 +33,17 @@ const Input = ({ friendUser, handleSave, setMessages }) => {
   }
 
   const handleMessageSave = () => {
+    if (!message) {
+      return
+    }
+
     setMessage('')
+
+    if (message.length > 1500) {
+      renderToast({ type: 'error', message: 'Proibido trava zap aqui corno manso' })
+      return
+    }
+
     handleSave(async () => {
       const { response, statusCode } = await POST({
         url: 'messages/create', body: JSON.stringify({
@@ -95,7 +106,7 @@ const Input = ({ friendUser, handleSave, setMessages }) => {
           onChange={({ target }) => handleMessageChange(target)}
         />
         <div className='input-send'>
-          <IconButton>
+          <IconButton type='submit'>
             <BsSendFill color='#EAF6FE' />
           </IconButton>
         </div>

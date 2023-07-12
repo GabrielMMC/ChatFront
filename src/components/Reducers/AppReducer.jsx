@@ -14,6 +14,9 @@ export default (state = INITIAL_STATE, action) => {
                 ...state,
                 token: null,
                 user: {},
+                friendships: [],
+                friendshipDefaultStyle: '',
+                selectedFriend: '',
             };
         case 'user':
             return {

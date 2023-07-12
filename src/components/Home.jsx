@@ -28,11 +28,6 @@ const Home = () => {
       return
     }
 
-    const selectedUser = JSON.parse(localStorage.getItem('selectedFriend'))
-    if (selectedUser) {
-      dispatch({ type: 'selectedFriend', payload: selectedUser })
-    }
-
     getFriendships()
     handleVisibilityChange()
 
