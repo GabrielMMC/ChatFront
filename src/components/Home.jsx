@@ -109,7 +109,7 @@ const Home = () => {
       {/* --------------------Content-structure-------------------- */}
       <div className="row content bg-principal align-items-center p-0">
         {echo &&
-          <div className={`${selectedFriend && 'd-md-block d-none'} col-md-3 bg-white chat p-0 shadow`} style={{ borderRadius: '.5rem 0 0 .5rem' }}>
+          <div className={`${location.pathname !== '/' && 'd-none'} d-md-block col-md-3 bg-white chat p-0 shadow`} style={{ borderRadius: '.5rem 0 0 .5rem' }}>
             <Navbar user={user} />
             {friendships.map(item => (
               <div key={item.id} onClick={(e) => { e.stopPropagation(); handleSelectFriend(item) }} className={`d-flex justify-content-between align-items-center mt-2 user-info ${selectedFriend.id === item.id ? 'selected' : ''}`}>
@@ -142,7 +142,7 @@ const Home = () => {
             )
             )}
           </div>}
-        <div className={`${!selectedFriend && 'd-md-flex d-none'} col-md-9 chat justify-content-between shadow`} style={{ borderRadius: '0 .5rem .5rem 0' }}>
+        <div className={`${location.pathname === '/' && 'd-none'} d-md-flex col-md-9 chat justify-content-between shadow`} style={{ borderRadius: '0 .5rem .5rem 0' }}>
           {echo && <Outlet />}
         </div>
         {/* ------------------------------------------------------- */}

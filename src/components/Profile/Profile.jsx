@@ -1,6 +1,6 @@
 import React from 'react'
 import { STORAGE_URL } from '../variables'
-import { CircularProgress, Skeleton } from '@mui/material'
+import { CircularProgress, IconButton, Skeleton } from '@mui/material'
 import { GET, POST } from '../../utils/request'
 import { renderToast } from '../../utils/Alerts'
 import { getRandomColor } from '../../utils/colors'
@@ -8,6 +8,8 @@ import './styles.css'
 import { Button } from '@mui/material'
 import useForm from '../../utils/useForm'
 import { useDispatch, useSelector } from 'react-redux'
+import { MdArrowBack } from 'react-icons/md'
+import { useNavigate } from 'react-router-dom'
 
 const Profile = () => {
   const [validNickname, setValidNickname] = React.useState(false)
@@ -21,6 +23,7 @@ const Profile = () => {
   const [errorMessage, setErrorMessage] = React.useState('')
   const [loadingSave, setLoadingSave] = React.useState(false)
   const dispatch = useDispatch()
+  const history = useNavigate()
 
   React.useEffect(() => {
     getUserData()
@@ -81,8 +84,18 @@ const Profile = () => {
     return true
   }
 
+  const handleBackToHome = () => {
+    dispatch({ type: 'selectedFriend', payload: '' })
+    history('/')
+  }
+
   return (
     <div className='d-flex justify-content-center p-4 h-100'>
+      <div className="d-md-none d-block">
+        <IconButton onClick={handleBackToHome}>
+          <MdArrowBack />
+        </IconButton>
+      </div>
       {!form.loading ?
         <form className='profile d-flex justify-content-center align-items-center flex-column' onSubmit={(e) => { e.preventDefault(); handleSave() }}>
           <div className="profile-img">
