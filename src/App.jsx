@@ -38,7 +38,7 @@ function App() {
         broadcaster: 'pusher',
         key: '648953a3719bc642f0ce',
         cluster: 'mt1',
-        wsHost: 'seu_dominio',
+        wsHost: 'zapii.website',
         wsPort: 6001,
         wssPort: 6001, // Adicione essa opção
         transports: ['websocket'],
