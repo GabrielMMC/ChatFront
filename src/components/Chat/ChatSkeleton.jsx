@@ -8,7 +8,7 @@ const ChatSkeleton = () => {
   React.useEffect(() => {
     if (loadingRef.current) {
       // Gerar um número aleatório para width entre 50px e 50% da tela
-      const totalItems = Math.floor((loadingRef.current?.clientHeight - 450) / 56)
+      const totalItems = Math.floor((loadingRef.current?.clientHeight - 300) / 45)
       const totalElements = [];
       const minWidth = 50;
 
@@ -16,12 +16,12 @@ const ChatSkeleton = () => {
         // Gerar um número aleatório entre 0 e 1
         const randomNum = Math.random();
         // Definir a classe com base no número aleatório
-        const className = randomNum < 0.5 ? 'sender mb-3' : 'receiver mb-3';
+        const className = randomNum < 0.5 ? 'sender mb-2' : 'receiver mb-2';
         const maxWidth = loadingRef.current?.clientWidth * 0.5;
         const width = Math.floor(Math.random() * (maxWidth - minWidth + 1)) + minWidth;
 
         totalElements.push(
-          <Skeleton variant="rounded" width={width} height={56} className={className} key={i} />
+          <Skeleton variant="rounded" width={width} height={45} className={className} key={i} />
         );
       }
       console.log('renderixou', totalElements)

@@ -36,6 +36,7 @@ const Navbar = ({ user }) => {
           localStorage.removeItem('friendships')
           localStorage.removeItem('echo')
           localStorage.removeItem('selectedFriend')
+
           dispatch({ type: 'logout' })
           history('/login')
         }
