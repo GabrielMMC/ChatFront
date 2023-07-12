@@ -38,13 +38,14 @@ function App() {
         broadcaster: 'pusher',
         key: '648953a3719bc642f0ce',
         cluster: 'mt1',
-        wsHost: 'zapii.website',
+        wsHost: 'seu_dominio',
         wsPort: 6001,
+        wssPort: 6001, // Adicione essa opção
         transports: ['websocket'],
-        enabledTransports: ['ws'],
-        forceTLS: false,
+        enabledTransports: ['ws', 'wss'],
+        forceTLS: true, // Defina como true para usar "wss"
         disableStats: true,
-        encrypted: false
+        encrypted: true, // Defina como true para usar "wss"
       })
     })
   }, [])
